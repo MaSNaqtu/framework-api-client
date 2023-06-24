@@ -26,6 +26,10 @@ yargs
         alias: 'o',
         description: 'Output file (outputs to stdout by default)'
     })
+    .option('start-page', {
+        alias: 's',
+        description: 'Page to start at (starts at 1 by default)'
+    })
     .boolean('auth')
     .command(require('./src/export'))
     .command(require('./src/search'))

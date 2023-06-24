@@ -37,7 +37,7 @@ exports.handler = async function (options) {
 
     console.time('Export')
     return client
-        .export(options.format, options.entities, options.outputFile)
+        .export(options.format, options.entities, options.outputFile, options.startPage)
         .then(entities => {
             console.timeEnd('Export')
 

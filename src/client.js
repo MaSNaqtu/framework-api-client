@@ -5,6 +5,9 @@ const parseLinks = require('parse-link-header')
 const Emitter = require('./emitter')
 
 function progressBar (state) {
+    if (state == null) {
+        return 'page: ?'
+    }
     if (state.error) {
         return state.error
     }
@@ -40,7 +43,7 @@ module.exports.Client = class Client extends Emitter {
         this._pageStates = {}
     }
 
-    async * _fetchPages (path, format, label = path) {
+    async * _fetchPages (path, format, startPage, label = path) {
         const mimeType = MIME_TYPES[format]
         if (!mimeType) {
             throw new TypeError(`Format "${format}" unknown`)
@@ -49,6 +52,9 @@ module.exports.Client = class Client extends Emitter {
         const skipHeader = format === 'csv' || format === 'tsv'
 
         let next = this.base + path
+        if (startPage > 1) {
+            next = next + '?page=' + startPage
+        }
         while (next) {
             const response = await fetch(next, {
                 headers: { Accept: mimeType, ...this._getCookieHeaders() }
@@ -155,7 +161,7 @@ module.exports.Client = class Client extends Emitter {
         }
     }
 
-    async export (format = 'ntriples', entities = [], fileName) {
+    async export (format = 'ntriples', entities = [], fileName, startPage = 1) {
         const file = fileName
             ? fs.createWriteStream(fileName)
             : process.stdout
@@ -163,7 +169,7 @@ module.exports.Client = class Client extends Emitter {
         this._setupPageStates(entities)
 
         return Promise.allSettled(entities.map(async entity => {
-            const pages = this._fetchPages(entity, format)
+            const pages = this._fetchPages(entity, format, startPage)
 
             for await (const page of pages) {
                 this._logPageStates()
