@@ -62,6 +62,10 @@ module.exports.Client = class Client extends Emitter {
             this._setCookies(response)
 
             if (response.status >= 400) {
+                if (response.status == 504) {
+                    console.error('Timeout!')
+                    continue
+                }
                 const error = `'${label}' returned code ${response.status}`
                 this._pageStates[label] = { error }
                 throw new Error(error)
