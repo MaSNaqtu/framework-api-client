@@ -85,7 +85,7 @@ exports.handler = async function (options) {
 
     console.time('Search')
     return client
-        .search(options.format, buildQuery(options), options.outputFile)
+        .search(options.format, buildQuery(options), options.outputFile, options.startPage)
         .catch(reason => { console.error(reason) })
         .finally(() => { console.timeEnd('Search') })
 }

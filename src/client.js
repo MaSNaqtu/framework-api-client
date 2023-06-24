@@ -178,7 +178,7 @@ module.exports.Client = class Client extends Emitter {
         }))
     }
 
-    async search (format = 'ntriples', query, fileName) {
+    async search (format = 'ntriples', query, fileName, startPage = 1) {
         const file = fileName
             ? fs.createWriteStream(fileName)
             : process.stdout
@@ -186,7 +186,7 @@ module.exports.Client = class Client extends Emitter {
         const label = 'search'
         this._setupPageStates([label])
 
-        const pages = this._fetchPages('search?' + query, format, label)
+        const pages = this._fetchPages('search?' + query, format, label, startPage)
 
         for await (const page of pages) {
             this._logPageStates()
