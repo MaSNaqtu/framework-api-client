@@ -46,6 +46,7 @@ Right now, the client supports two basic operations:
       --format, -f       File format
                       [choices: "ndjson", "csv", "tsv", "ntriples", "bibtex", "atf"]
       --output-file, -o  Output file (outputs to stdout by default)
+      --start-page, -s Page to start at (starts at 1 by default)           [number ]
       --help             Show help                                         [boolean]
 
 #### Export
@@ -67,6 +68,7 @@ Right now, the client supports two basic operations:
                 "artifactsMaterials", "collections", "dates", "dynasties", "genres",
       "inscriptions", "languages", "materials", "materialAspects", "materialColors",
                      "periods", "proveniences", "publications", "regions", "rulers"]
+      --start-page, -s Page to start at (starts at 1 by default)           [number ]
 
 So to export place-related entities from a locally-running framework instance you
 could do this:
@@ -104,6 +106,7 @@ could do this:
       -f, --format       File format
                       [choices: "ndjson", "csv", "tsv", "ntriples", "bibtex", "atf"]
       -o, --output-file  Output file (outputs to stdout by default)
+          --start-page, -s Page to start at (starts at 1 by default)           [number ]
           --help         Show help                                         [boolean]
 
 Example:
