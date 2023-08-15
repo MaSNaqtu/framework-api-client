@@ -78,6 +78,8 @@ could do this:
       --entities archives proveniences regions \
       --output-file places.nt
 
+Nota bene: for "inscriptions" always use "atf".
+
 #### Search
 
     cdli search
