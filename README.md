@@ -79,7 +79,10 @@ could do this:
       --entities archives proveniences regions \
       --output-file places.nt
 
-Nota bene: for "inscriptions" always use "atf".
+Nota bene:
+
+- for "inscriptions" always use format "atf"
+- for "artifacts-external-resources"  always use format "ntriples"
 
 #### Search
 
