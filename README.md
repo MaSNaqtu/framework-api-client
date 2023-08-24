@@ -34,11 +34,11 @@ Right now, the client supports two basic operations:
 ### Command-Line Interface
 
     cdli [command]
-
+    
     Commands:
       cdli export  Export catalog and text data
       cdli search  Export catalog and text data
-
+    
     Options:
       --version          Show version number                               [boolean]
       --host, -h         Host URL to use for API calls
@@ -52,9 +52,9 @@ Right now, the client supports two basic operations:
 #### Export
 
     cdli export
-
+    
     Export catalog and text data
-
+    
     Options:
       --version          Show version number                               [boolean]
       --host, -h         Host URL to use for API calls
@@ -64,10 +64,11 @@ Right now, the client supports two basic operations:
       --output-file, -o  Output file (outputs to stdout by default)
       --help             Show help                                         [boolean]
       --entities, -e     Which types of entities to fetch
-            [array] [choices: "archives", "artifacts", "artifactsExternalResources",
-                "artifactsMaterials", "collections", "dates", "dynasties", "genres",
-      "inscriptions", "languages", "materials", "materialAspects", "materialColors",
-                     "periods", "proveniences", "publications", "regions", "rulers"]
+            [array] [choices:  "archives", "artifacts", "artifact-assets",
+                  "artifacts-external-resources", "authors", "collections", "dates",
+           "dynasties", "external-resources", "genres", "inscriptions", "languages",
+      "materials", "material-aspects", "material-colors", "periods", "proveniences",
+                                                "publications", "regions", "rulers"]
       --start-page, -s Page to start at (starts at 1 by default)           [number ]
 
 So to export place-related entities from a locally-running framework instance you
@@ -83,24 +84,24 @@ Nota bene: for "inscriptions" always use "atf".
 #### Search
 
     cdli search
-
+    
     Search artifacts in the catalog
-
+    
     Simple search:
       -q, --query                Search query                                [array]
           --queryCategory, --qc  Search category
             [array] [choices: "keyword", "publication", "collection", "provenience",
                                    "period", "transliteration", "translation", "id"]
           --queryOperator, --qo  Search operator      [array] [choices: "AND", "OR"]
-
+    
     Advanced search:
           --advancedField, --af  Search field                                [array]
           --advancedQuery, --aq  Search query                                [array]
-
+    
     Filter:
           --filterField, --fk  Filter by field                               [array]
           --filterValue, --fv  Filter by value                               [array]
-
+    
     Options:
           --version      Show version number                               [boolean]
       -h, --host         Host URL to use for API calls
