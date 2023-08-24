@@ -33,6 +33,10 @@ exports.builder = {
 }
 
 exports.handler = async function (options) {
+    if (options.entities[0] === 'dates') {
+        options.auth = true
+    }
+    
     const client = await getClient(options)
 
     console.time('Export')
