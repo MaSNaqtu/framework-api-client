@@ -125,27 +125,28 @@ Example:
 ### Authentication
 To download dates it is required to use the cookie option. Here we will explain how to use this option
 1) If you do not have an account, go to https://cdli.mpiwg-berlin.mpg.de/register and register on the site.
-2) Open web developer tools (Generally under "More Tools")
+2) Log in with your account at https://cdli.mpiwg-berlin.mpg.de/login
+3) Open web developer tools (Generally under "More Tools")
 
 ![Web Developer Tools location](./resources/Web_Dev_Tools.png)
 
-3) Navigate to Network Menu (orientation of web developer tools may vary)
+4) Navigate to Network Menu (orientation of web developer tools may vary)
 
 ![Network location](./resources/Network.png)
 
-4) Reload page, your network tab should now a list of network transactions. Click on the first one.
+5) Reload page, your network tab should now a list of network transactions. Click on the first one.
 
 ![Top request location](./resources/Request.png)
 
-5) A new tile should open up. Here, navigate to headers.
+6) A new tile should open up. Here, navigate to headers.
 
 ![Header location](./resources/Headers.png)
 
-6) Navigate to Request Header.
+7) Navigate to Request Header.
 
 ![Request header location](./resources/Request_Header.png)
 
-7) Navigate to cookies and copy csrfToken (everything between = and ;). This is the value for the cookie option.
+8) Navigate to cookies and copy csrfToken (everything between = and ;). This is the value for the cookie option.
 
 ![Token.png](./resources/Token.png)
 
