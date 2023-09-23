@@ -46,7 +46,8 @@ Right now, the client supports two basic operations:
       --format, -f       File format
                       [choices: "ndjson", "csv", "tsv", "ntriples", "bibtex", "atf"]
       --output-file, -o  Output file (outputs to stdout by default)
-      --start-page, -s Page to start at (starts at 1 by default)           [number ]
+      --start-page, -s   Page to start at (starts at 1 by default)         [number ]
+      --cookie, -c       Cookie obtained after login                    [raw string]  
       --help             Show help                                         [boolean]
 
 #### Export
@@ -70,6 +71,7 @@ Right now, the client supports two basic operations:
       "materials", "material-aspects", "material-colors", "periods", "proveniences",
                                                 "publications", "regions", "rulers"]
       --start-page, -s Page to start at (starts at 1 by default)           [number ]
+      --cookie, -c       Cookie obtained after login                    [raw string] 
 
 So to export place-related entities from a locally-running framework instance you
 could do this:
@@ -83,6 +85,7 @@ Nota bene:
 
 - for "inscriptions" always use format "atf"
 - for "artifacts-external-resources"  always use format "ntriples"
+- for "artifacts-external-resources"  always use format "ntriples" and use cookie option (use explained in Authentication)
 
 #### Search
 
@@ -118,6 +121,33 @@ Nota bene:
 Example:
 
     cdli search -q holland --fk genre --fv "Official or display" -f tsv
+
+### Authentication
+To download dates it is required to use the cookie option. Here we will explain how to use this option
+1) If you do not have an account, go to https://cdli.mpiwg-berlin.mpg.de/register and register on the site.
+2) Open web developer tools (Generally under "More Tools")
+
+![Web Developer Tools location](./resources/Web_Dev_Tools.png)
+
+3) Navigate to Network Menu (orientation of web developer tools may vary)
+
+![Network location](./resources/Network.png)
+
+4) Reload page, your network tab should now a list of network transactions. Click on the first one.
+
+![Top request location](./resources/Request.png)
+
+5) A new tile should open up. Here, navigate to headers.
+
+![Header location](./resources/Headers.png)
+
+6) Navigate to Request Header.
+
+![Request header location](./resources/Request_Header.png)
+
+7) Navigate to cookies and copy csrfToken (everything between = and ;). This is the value for the cookie option.
+
+![Token.png](./resources/Token.png)
 
 ### Programming Interface
 

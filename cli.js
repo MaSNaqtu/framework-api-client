@@ -30,6 +30,10 @@ yargs
         alias: 's',
         description: 'Page to start at (starts at 1 by default)'
     })
+    .option('cookie', {
+        alias: 'c',
+        description: 'Cookie csrfToken after login'
+    })
     .boolean('auth')
     .command(require('./src/export'))
     .command(require('./src/search'))

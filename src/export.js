@@ -36,12 +36,12 @@ exports.handler = async function (options) {
     if (options.entities[0] === 'dates') {
         options.auth = true
     }
-    
+
     const client = await getClient(options)
 
     console.time('Export')
     return client
-        .export(options.format, options.entities, options.outputFile, options.startPage)
+        .export(options.format, options.entities, options.outputFile, options.startPage, options.cookie)
         .then(entities => {
             console.timeEnd('Export')
 

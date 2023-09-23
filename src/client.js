@@ -13,7 +13,7 @@ function progressBar (state) {
     }
 
     if (!state.last || !state.last.page) {
-      return `page: ${state.current.page}`
+        return `page: ${state.current.page}`
     }
 
     const current = state.current.page
@@ -43,7 +43,7 @@ module.exports.Client = class Client extends Emitter {
         this._pageStates = {}
     }
 
-    async * _fetchPages (path, format, startPage, label = path) {
+    async * _fetchPages (path, format, startPage, cookie, label = path) {
         const mimeType = MIME_TYPES[format]
         if (!mimeType) {
             throw new TypeError(`Format "${format}" unknown`)
@@ -56,13 +56,24 @@ module.exports.Client = class Client extends Emitter {
             next = next + '?page=' + startPage
         }
         while (next) {
-            const response = await fetch(next, {
-                headers: { Accept: mimeType, ...this._getCookieHeaders() }
-            })
+            let response
+            if (!cookie) {
+                response = await fetch(next, {
+                    headers: { Accept: mimeType, ...this._getCookieHeaders() }
+                })
+            } else {
+                response = await fetch(next, {
+                    headers: {
+                        accept: mimeType,
+                        cookie: 'csrfToken=' + cookie + '; PHPSESSID=7q5tc1045cj2hrb056t9gtohsc'
+                    }
+                })
+            }
+
             this._setCookies(response)
 
             if (response.status >= 400) {
-                if (response.status == 504) {
+                if (response.status === 504) {
                     console.error('Timeout!')
                     continue
                 }
@@ -125,7 +136,7 @@ module.exports.Client = class Client extends Emitter {
 
         for (const cookie of header) {
             const [key, ...value] = cookie.split(';')[0].split('=')
-            this._cookies[key] = decodeURIComponent(value.join('='))
+            this._cookies[key] = value.join('=')
         }
     }
 
@@ -165,7 +176,7 @@ module.exports.Client = class Client extends Emitter {
         }
     }
 
-    async export (format = 'ntriples', entities = [], fileName, startPage = 1) {
+    async export (format = 'ntriples', entities = [], fileName, startPage = 1, cookie) {
         const file = fileName
             ? fs.createWriteStream(fileName)
             : process.stdout
@@ -173,7 +184,7 @@ module.exports.Client = class Client extends Emitter {
         this._setupPageStates(entities)
 
         return Promise.allSettled(entities.map(async entity => {
-            const pages = this._fetchPages(entity, format, startPage)
+            const pages = this._fetchPages(entity, format, startPage, cookie)
 
             for await (const page of pages) {
                 this._logPageStates()
