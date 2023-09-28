@@ -177,7 +177,7 @@ module.exports.Client = class Client extends Emitter {
     }
 
     async export (format = 'ntriples', entities = [], fileName, startPage = 1, cookie) {
-        let fileIndex = 1;
+        let fileIndex = 1
         let file = fileName
             ? fs.createWriteStream(fileName)
             : process.stdout
@@ -185,15 +185,14 @@ module.exports.Client = class Client extends Emitter {
         this._setupPageStates(entities)
 
         return Promise.allSettled(entities.map(async entity => {
-            if (file.bytesWritten > 90000000 && fileName) {
-                const fileNameSplit = fileName.split('.');
-                file = fs.createWriteStream(fileNameSplit[0] + "-" + fileIndex + "." + fileNameSplit[1])
-                fileIndex++
-            }
-            
             const pages = this._fetchPages(entity, format, startPage, cookie)
 
             for await (const page of pages) {
+                if (file.bytesWritten > 90000000 && fileName) {
+                    const fileNameSplit = fileName.split('.')
+                    file = fs.createWriteStream('.' + fileNameSplit[1] + '-' + fileIndex + '.' + fileNameSplit[2])
+                    fileIndex++
+                }
                 this._logPageStates()
                 file.write(page)
             }

@@ -85,7 +85,7 @@ Nota bene:
 
 - for "inscriptions" always use format "atf"
 - for "artifacts-external-resources"  always use format "ntriples"
-- for "artifacts-external-resources"  always use format "ntriples" and use cookie option (use explained in Authentication)
+- for "dates"  always use format "ntriples" and use cookie option (use explained in Authentication)
 
 #### Search
 
